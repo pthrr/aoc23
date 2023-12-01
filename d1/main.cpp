@@ -1,5 +1,4 @@
 #include <array>
-#include <cstdio>
 #include <fstream>
 #include <iostream>
 #include <map>
@@ -8,6 +7,15 @@
 #include <string>
 
 const std::map< std::string, int > word_map{
+    { "1", 1 },
+    { "2", 2 },
+    { "3", 3 },
+    { "4", 4 },
+    { "5", 5 },
+    { "6", 6 },
+    { "7", 7 },
+    { "8", 8 },
+    { "9", 9 },
     { "one", 1 },
     { "two", 2 },
     { "three", 3 },
@@ -19,7 +27,7 @@ const std::map< std::string, int > word_map{
     { "nine", 9 },
 };
 
-auto word2int( const std::string& word ) -> int
+auto str2int( const std::string& word ) -> int
 {
     return word_map.at( word );
 }
@@ -55,19 +63,7 @@ auto main( int argc, char** argv ) -> int
         }
 
         if( first.has_value() ) {
-            if( first.value().size() > 1 ) {
-                result += 10 * word2int( first.value() );
-            }
-            else {
-                result += 10 * std::stoi( first.value() );
-            }
-
-            if( last.value().size() > 1 ) {
-                result += word2int( last.value() );
-            }
-            else {
-                result += std::stoi( last.value() );
-            }
+            result += 10 * str2int( first.value() ) + str2int( last.value() );
         }
     }
 
