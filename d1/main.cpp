@@ -55,9 +55,6 @@ auto main( int argc, char** argv ) -> int
         }
 
         if( first.has_value() ) {
-            /* std::cout << "First: " << first.value() << std::endl; */
-            /* std::cout << "Last: " << last.value() << std::endl; */
-
             if( first.value().size() > 1 ) {
                 result += 10 * word2int( first.value() );
             }
@@ -75,8 +72,6 @@ auto main( int argc, char** argv ) -> int
     }
 
     file.close();
-    std::array< char, 50 > buffer{};
-    sprintf( buffer.data(), "%d", result );
-    std::cout << "Sum: " << buffer.data() << std::endl;
+    std::cout << "Sum: " << std::to_string( result ) << std::endl;
     return 0;
 }
