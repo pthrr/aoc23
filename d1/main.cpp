@@ -44,12 +44,14 @@ auto main( int argc, char** argv ) -> int
     int result{ 0 };
     std::string line{};
     std::regex digits_and_words( "(\\d|one|two|three|four|five|six|seven|eight|nine)" );
+    std::optional< std::string > first;
+    std::optional< std::string > last;
 
     while( std::getline( file, line ) ) {
         auto line_begin = std::sregex_iterator( line.begin(), line.end(), digits_and_words );
         auto line_end = std::sregex_iterator();
-        std::optional< std::string > first;
-        std::optional< std::string > last;
+        first.reset();
+        last.reset();
 
         for( auto i = line_begin; i != line_end; ++i ) {
             const std::smatch& match = *i;
