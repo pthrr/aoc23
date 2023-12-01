@@ -1,0 +1,22 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+  compile:
+    cmds:
+      - g++ -Werror -Wall -std=c++20 -g3 -O0 main.cpp
+    sources:
+      - Taskfile.yaml
+      - main.cpp
+    generates:
+      - a.out
+
+  run:
+    cmds:
+      - task: compile
+      - ./a.out
+
+  clean:
+    cmds:
+      - rm a.out
