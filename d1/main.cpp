@@ -51,9 +51,9 @@ auto main( int argc, char** argv ) -> int
         first.reset();
         last.reset();
 
-        for( size_t pos = 0; pos < line.length(); ++pos ) {
-            auto start = line.cbegin() + static_cast< long >( pos );
-            auto end = line.cend();
+        for( size_t pos{ 0 }; pos < line.length(); ++pos ) {
+            auto start{ line.cbegin() + static_cast< long >( pos ) };
+            auto end{ line.cend() };
             std::smatch match;
 
             if( std::regex_search( start, end, match, rx_digits ) ) {
