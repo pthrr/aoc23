@@ -40,7 +40,7 @@ auto main( int argc, char** argv ) -> int
         return 1;
     }
 
-    int result{ 0 };
+    int sum{ 0 };
     std::string line{};
     /* std::regex rx_digits{ "(\\d)" }; // part1 */
     std::regex rx_digits{ "(\\d|one|two|three|four|five|six|seven|eight|nine)" }; // part2
@@ -66,11 +66,11 @@ auto main( int argc, char** argv ) -> int
         }
 
         if( first.has_value() ) {
-            result += 10 * str2int( first.value() ) + str2int( last.value() );
+            sum += 10 * str2int( first.value() ) + str2int( last.value() );
         }
     }
 
     file.close();
-    std::cout << "Sum: " << std::to_string( result ) << std::endl;
+    std::cout << "Sum: " << std::to_string( sum ) << std::endl;
     return 0;
 }
