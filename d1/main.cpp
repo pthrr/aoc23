@@ -6,7 +6,7 @@
 #include <regex>
 #include <string>
 
-const std::map< std::string, int > word_map{
+const std::map< std::string, int > str2int_map{
     { "1", 1 },
     { "2", 2 },
     { "3", 3 },
@@ -27,9 +27,9 @@ const std::map< std::string, int > word_map{
     { "nine", 9 },
 };
 
-auto str2int( const std::string& word ) -> int
+auto str2int( const std::string& str ) -> int
 {
-    return word_map.at( word );
+    return str2int_map.at( str );
 }
 
 auto main( int argc, char** argv ) -> int
@@ -49,20 +49,21 @@ auto main( int argc, char** argv ) -> int
     std::optional< std::string > last;
 
     while( std::getline( file, line ) ) {
-        auto line_begin = std::sregex_iterator( line.begin(), line.end(), digits );
-        auto line_end = std::sregex_iterator();
         first.reset();
         last.reset();
 
-        for( auto i = line_begin; i != line_end; ++i ) {
-            const std::smatch& match = *i;
-            std::string match_str = match.str();
+        for( size_t pos = 0; pos < line.length(); ++pos ) {
+            auto start = line.cbegin() + static_cast< long >( pos );
+            auto end = line.cend();
+            std::smatch match;
 
-            if( !first.has_value() ) {
-                first = match_str;
+            if( std::regex_search( start, end, match, digits ) ) {
+                if( !first.has_value() ) {
+                    first = match[1].str();
+                }
+
+                last = match[1].str();
             }
-
-            last = match_str;
         }
 
         if( first.has_value() ) {
