@@ -42,8 +42,8 @@ auto main( int argc, char** argv ) -> int
 
     int result{ 0 };
     std::string line{};
-    /* std::regex digits( "(\\d)" ); // part1 */
-    std::regex digits( "(\\d|one|two|three|four|five|six|seven|eight|nine)" ); // part2
+    /* std::regex rx_digits{ "(\\d)" }; // part1 */
+    std::regex rx_digits{ "(\\d|one|two|three|four|five|six|seven|eight|nine)" }; // part2
     std::optional< std::string > first;
     std::optional< std::string > last;
 
@@ -56,7 +56,7 @@ auto main( int argc, char** argv ) -> int
             auto end = line.cend();
             std::smatch match;
 
-            if( std::regex_search( start, end, match, digits ) ) {
+            if( std::regex_search( start, end, match, rx_digits ) ) {
                 if( !first.has_value() ) {
                     first = match[1].str();
                 }
