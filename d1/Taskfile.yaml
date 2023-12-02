@@ -7,7 +7,6 @@ tasks:
     cmds:
       - g++ -Werror -Wall -std=c++20 -g3 -O0 main.cpp
     sources:
-      - Taskfile.yaml
       - main.cpp
     generates:
       - a.out
