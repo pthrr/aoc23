@@ -33,7 +33,7 @@ auto str2int( const std::string& str ) -> int
 
 auto main( int argc, char** argv ) -> int
 {
-    std::ifstream file( "data.txt" );
+    std::ifstream file{ "data.txt" };
 
     if( !file.is_open() ) {
         std::cerr << "Error opening file" << std::endl;
