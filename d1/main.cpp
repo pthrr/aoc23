@@ -47,7 +47,7 @@ auto main( int argc, char** argv ) -> int
     std::optional< std::string > first;
     std::optional< std::string > last;
 
-    while( std::getline( file, line ) ) {
+    for( ; std::getline( file, line ); ) {
         first.reset();
         last.reset();
 
