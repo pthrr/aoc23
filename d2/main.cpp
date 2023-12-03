@@ -21,7 +21,7 @@ public:
     int green;
     int blue;
 
-    explicit Game( GameSettings settings = GameSettings{} )
+    explicit Game( const GameSettings& settings = GameSettings{} )
         : id( settings.id )
         , red( settings.red )
         , green( settings.green )
