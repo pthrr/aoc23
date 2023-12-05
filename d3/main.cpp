@@ -13,18 +13,18 @@ auto float_equal( double a, double b, double tol = 1e-6 ) -> bool
     return std::fabs( a - b ) < tol;
 }
 
-struct PositionSettings
-{
-    int x{};
-    int y{};
-};
-
 struct Position
 {
     int x{};
     int y{};
 
-    explicit Position( const PositionSettings& settings = PositionSettings{} )
+    struct PositionArgs
+    {
+        int x{};
+        int y{};
+    };
+
+    explicit Position( const PositionArgs& settings )
         : x( settings.x )
         , y( settings.y )
     {
@@ -42,14 +42,6 @@ enum class ObjectType
     PART
 };
 
-struct ObjectSettings
-{
-    ObjectType type{};
-    int value{};
-    std::string name{};
-    std::vector< Position > pos{};
-};
-
 class Object
 {
 public:
@@ -59,7 +51,15 @@ public:
     bool used{ false };
     std::vector< Position > pos{};
 
-    explicit Object( const ObjectSettings& settings = ObjectSettings{} )
+    struct ObjectArgs
+    {
+        ObjectType type{};
+        int value{};
+        std::string name{};
+        std::vector< Position > pos{};
+    };
+
+    explicit Object( const ObjectArgs& settings )
         : type( settings.type )
         , value( settings.value )
         , name( settings.name )
@@ -117,11 +117,10 @@ auto main( int argc, char** argv ) -> int
             std::vector< Position > pos{};
 
             for( int x : std::views::iota( start_pos, end_pos + 1 ) ) {
-                pos.emplace_back( Position{ PositionSettings{ .x = x, .y = pos_line } } );
+                pos.emplace_back( Position{ { .x = x, .y = pos_line } } );
             }
 
-            objects.emplace_back(
-                Object{ ObjectSettings{ .type = ObjectType::PART, .value = value, .pos = pos } } );
+            objects.emplace_back( Object{ { .type = ObjectType::PART, .value = value, .pos = pos } } );
         }
 
         std::sregex_iterator line_iterator_symbol{ line.begin(), line.end(), rx_symbol };
@@ -134,11 +133,10 @@ auto main( int argc, char** argv ) -> int
             std::vector< Position > pos{};
 
             for( int x : std::views::iota( start_pos, end_pos + 1 ) ) {
-                pos.emplace_back( Position{ PositionSettings{ .x = x, .y = pos_line } } );
+                pos.emplace_back( Position{ { .x = x, .y = pos_line } } );
             }
 
-            objects.emplace_back(
-                Object{ ObjectSettings{ .type = ObjectType::SYMBOL, .name = name, .pos = pos } } );
+            objects.emplace_back( Object{ { .type = ObjectType::SYMBOL, .name = name, .pos = pos } } );
         }
     }
 
